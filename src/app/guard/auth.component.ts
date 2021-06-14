@@ -1,7 +1,7 @@
 import { UserService } from './../services/user.service';
 import { IUser } from './../user/user';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -9,32 +9,27 @@ import { Injectable } from '@angular/core';
 })
 export class AuthGuard implements CanActivate {
 
+    isAutenticated: Boolean = false;
+
     constructor(private router: Router, private userService: UserService) {
         this.userService = userService;
     }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+
         return this.checkLogin();
+
     }
-    checkLogin(): boolean {
+    async checkLogin(): Promise<any> {
         let userName = sessionStorage.getItem('userName');
         let password = sessionStorage.getItem('password');
 
-        console.log(userName);
-        console.log(password);
-        this.userService.getUsersByPasswordAndUserName(String(userName), String(password)).subscribe({
-            next: user => {
-
-                if (typeof user !== 'undefined') {
-                    // this.router.navigate(["/user"]);
-                    console.log('here');
-                    return true;
-                }
-                this.router.navigate(['/login']);
-                return false;
-            }
-        });
-
+        let user = await this.userService.getUsersByPasswordAndUserName(String(userName), String(password)).toPromise();
+        console.log("user");
+        console.log(user);
+        if (user?.userName === userName && user?.password === password) {
+            return true;
+        }
+        this.router.navigate(["/login"]);
         return false;
     }
-
 }
