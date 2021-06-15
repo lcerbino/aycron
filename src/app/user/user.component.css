@@ -1,0 +1,14 @@
+.demo-table {
+  width: 100%;
+}
+
+.demo-button-container {
+  padding-bottom: 16px;
+  float: right;
+  margin-top: 10px;
+}
+
+.demo-button + .demo-button {
+  margin-left: 8px;
+}
+

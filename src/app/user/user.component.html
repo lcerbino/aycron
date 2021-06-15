@@ -1,1 +1,39 @@
-<p>I am user</p>
+<div class="demo-button-container" style="float: end !important;">
+    <button mat-raised-button (click)="addUser()" class="demo-button">
+        Add user
+    </button>
+</div>
+
+<table mat-table [dataSource]="users" class="mat-elevation-z8 demo-table">
+    <!-- Position Column -->
+    <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef>Fecha</th>
+        <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="userName">
+        <th mat-header-cell *matHeaderCellDef>Username</th>
+        <td mat-cell *matCellDef="let element">{{element.userName}}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{element.name}}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-stroked-button style="margin-right: 10px;">CV</button>
+            <button mat-mini-fab color="primary" aria-label="Example icon button with a delete icon">
+                <mat-icon style="size:sm;">delete</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

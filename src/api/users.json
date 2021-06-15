@@ -1,8 +1,44 @@
 {
     "users": [
         {
+            "id": "1",
             "userName": "lcerbino",
-            "password": "1234"
+            "fecha": "6-6-2021",
+            "password": "1234",
+            "name": "Lucas Cerbino",
+            "cv": ""
+        },
+        {
+            "id": "2",
+            "userName": "msanchez",
+            "fecha": "19-6-2021",
+            "password": "12345",
+            "name": "Marta Sanchez",
+            "cv": ""
+        },
+        {
+            "id": "3",
+            "userName": "Jdoe",
+            "fecha": "11-6-2021",
+            "password": "12346",
+            "name": "John Doe",
+            "cv": ""
+        },
+        {
+            "id": "4",
+            "userName": "Jpuchetta",
+            "fecha": "10-6-2021",
+            "password": "1234567",
+            "name": "Juan Puchetta",
+            "cv": ""
+        },
+        {
+            "id": "5",
+            "userName": "ldeluca",
+            "password": "12345678",
+            "name": "Lorena De Luca",
+            "fecha": "14-6-2021",
+            "cv": ""
         }
     ]
 }
