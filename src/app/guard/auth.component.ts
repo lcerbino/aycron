@@ -20,15 +20,17 @@ export class AuthGuard implements CanActivate {
 
     }
     async checkLogin(): Promise<any> {
-        let userName = sessionStorage.getItem('userName');
+        let username = sessionStorage.getItem('userName');
         let password = sessionStorage.getItem('password');
 
-        let user = await this.userService.getUsersByPasswordAndUserName(String(userName), String(password)).toPromise();
-        console.log("user");
-        console.log(user);
-        if (user?.userName === userName && user?.password === password) {
+        let users = await this.userService.getUsers().toPromise();
+        let user = Object.values(users).find(z => z.userName == username && z.password == password);
+        if (typeof user !== 'undefined') {
             return true;
         }
+
+        sessionStorage.setItem('userName', '');
+        sessionStorage.setItem('password', '');
         this.router.navigate(["/login"]);
         return false;
     }

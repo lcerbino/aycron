@@ -45,16 +45,22 @@ export class UserComponent {
 
     ngOnInit(): void {
         this.userService.getUsers().subscribe(z => {
-            this.users = z;
-        })
+            this.users = Object.values(z);
+        });
     }
 
     addUser() {
         this.router.navigate(["/newUser"]);
     }
 
-    removeData() {
-        //this.dataSource.pop();
-        this.table.renderRows();
+    delete(row: any) {
+        //delete from the dom
+        let usersAux = [...this.users];
+        let userAuxfiltered = usersAux.filter(r => r.id !== row.id);
+        this.users = [...userAuxfiltered];
+
+        //update deleted
+
+        this.userService.UpdateUser(this.users).subscribe();
     }
 }

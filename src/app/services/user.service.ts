@@ -1,8 +1,8 @@
+import { IUser } from './../user/user';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { catchError, map, tap } from 'rxjs/operators';
-import { IUser } from "../user/user";
 
 @Injectable({
     providedIn: 'root'
@@ -13,21 +13,30 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     //get all users
-    getUsers(): Observable<IUser[]> {
-        return this.http.get<IUser[]>(this.userUrl)
+    getUsers(): Observable<any[]> {
+        return this.http.get<any[]>(this.userUrl)
             .pipe(
                 tap(data => console.log('All: ', JSON.stringify(data))),
                 catchError(this.handleError)
             );
     }
 
-    getUsersByPasswordAndUserName(userName: string, password: string): Observable<IUser | undefined> {
+    getUsersByPasswordAndUserName(userName: string, password: string): Observable<any | undefined> {
         return this.getUsers()
             .pipe(
-                map((users: IUser[]) => users.find(p => p.userName === userName && p.password === password))
+                map((users: any[]) => users.find(p => p.userName === userName && p.password === password))
             );
     }
 
+    AddUser(user: IUser) {
+        return this.http.post(this.userUrl, user).
+            pipe(catchError(this.handleError));
+    }
+
+    UpdateUser(user: IUser) {
+        return this.http.put(this.userUrl, user).
+            pipe(catchError(this.handleError));
+    }
 
     private handleError(err: HttpErrorResponse): Observable<never> {
         let errorMessage = '';

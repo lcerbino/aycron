@@ -2,7 +2,7 @@
     <mat-toolbar-row>
         <button mat-button [matMenuTriggerFor]="menu">Menu</button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item>Cerrar Sesión</button>
+            <button mat-menu-item (click)="logout()">Cerrar Sesión</button>
         </mat-menu>
         <span class="title"> User manager</span>
     </mat-toolbar-row>

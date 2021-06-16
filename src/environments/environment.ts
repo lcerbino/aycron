@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  accountName: "cvaycronmanager",
+  containerName: "files",
+  key: "PgJm0efbfeLrHZMiu8BgL9m7gc+j3lsUXryZAd1RfC2tUi+C1ionoJzmV9A4fo2rqJ+IfJ4QbgUO0f02q2nlZw=="
 };
 
 /*

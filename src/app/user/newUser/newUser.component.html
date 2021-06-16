@@ -1,23 +1,25 @@
 <form [formGroup]="profileForm">
-  <mat-label class="control" style="font-size: large;margin-top: 20px; margin-bottom: 20px;">create User</mat-label>
+  <mat-label class="control" style="font-size: large;margin-top: 20px; margin-bottom: 20px;">Create User</mat-label>
   <mat-form-field class="control" appearance="fill">
-    <mat-label>First Name</mat-label>
-    <input matInput type="email" formControlName="userName">
+    <mat-label>User Name</mat-label>
+    <input matInput type="email" class="form-control" [(ngModel)]='email' formControlName="userName">
   </mat-form-field>
   <mat-form-field class="control" appearance="fill">
     <mat-label>Password</mat-label>
-    <input matInput type="password" formControlName="password">
+    <input matInput type="password" class="form-control" [(ngModel)]='pass' formControlName="password">
   </mat-form-field>
   <mat-form-field class="control" appearance="fill">
     <mat-label>Repeat Password</mat-label>
     <input matInput type="password" formControlName="repeatPassword">
   </mat-form-field>
   <mat-form-field class="control" appearance="fill">
-    <mat-label>Last Name</mat-label>
-    <input matInput formControlName="lastName">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" class="form-control" [(ngModel)]='nameComplete' formControlName="name">
   </mat-form-field>
-  <label class="control">CV</label>
-  <input class="control" style="margin-bottom: 10px;" type="file">
-  <button mat-raised-button color="primary" class="control" type="submit"
+  <div class="control">
+    <mat-label>CV </mat-label>
+    <input class="control" style=" margin-bottom: 10px; width: 200px;" (change)="onFileChange($event)" type="file">
+  </div>
+  <button mat-raised-button color="primary" (click)='addUser()' class="control" type="submit"
     [disabled]="!profileForm.valid">Submit</button>
 </form>

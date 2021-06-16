@@ -21,26 +21,19 @@ export class LogInComponent {
         this.enableInvalidCredential = false;
     }
 
-    login(): void {
-        this.checkUserByPasswordAndUserName(this.username, this.password);
+    async login(): Promise<void> {
+
+        let users = await this.userService.getUsers().toPromise();
+        let user = Object.values(users).find(z => z.userName == this.username && z.password == this.password);
+
+        console.log(Object.values(users));
+        if (typeof user !== 'undefined') {
+            sessionStorage.setItem('userName', user.userName);
+            sessionStorage.setItem('password', user.password);
+            this.router.navigate(["/user"]);
+        } else {
+            this.enableInvalidCredential = true;
+        }
+
     }
-
-    checkUserByPasswordAndUserName(username: any, password: any): any {
-        this.userService.getUsersByPasswordAndUserName(username, password).subscribe({
-            next: user => {
-
-                sessionStorage.setItem('userName', username);
-                sessionStorage.setItem('password', password);
-
-                if (typeof user !== 'undefined') {
-                    console.log('hola');
-                    this.router.navigate(["/user"]);
-                } else {
-                    this.enableInvalidCredential = true;
-                }
-            },
-            error: err => this.errorMessage = err
-        });
-    }
-
 }
