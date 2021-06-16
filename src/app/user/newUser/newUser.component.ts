@@ -21,16 +21,23 @@ export class NewUserComponent {
     nameComplete: string = '';
     title = 'web1';
     currentFile: any = null;
+    profileForm: any;
 
     constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
 
-    profileForm = this.fb.group({
-        userName: ['', Validators.required],
-        name: ['', Validators.required],
-        repeatPassword: ['', Validators.required],
-        password: ['', Validators.required]
-    });
 
+    ngOnInit() {
+        this.profileForm = this.fb.group({
+            userName: ['', [Validators.required, Validators.email]],
+            name: ['', Validators.required],
+            repeatPassword: ['', Validators.required],
+            password: ['', Validators.required]
+        }, {
+            validator: this.MustMatch('password', 'repeatPassword')
+        });
+    }
+
+    get f() { return this.profileForm?.controls; }
 
     addUser() {
         let user = {
@@ -114,6 +121,24 @@ export class NewUserComponent {
 
     }
 
+    MustMatch(controlName: string, matchingControlName: string) {
+        return (formGroup: FormGroup) => {
+            const control = formGroup.controls[controlName];
+            const matchingControl = formGroup.controls[matchingControlName];
+
+            if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+                // return if another validator has already found an error on the matchingControl
+                return;
+            }
+
+            // set error on matchingControl if validation fails
+            if (control.value !== matchingControl.value) {
+                matchingControl.setErrors({ mustMatch: true });
+            } else {
+                matchingControl.setErrors(null);
+            }
+        }
+    }
 
     async download() {
         // generate account sas token
