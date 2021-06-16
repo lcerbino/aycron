@@ -48,7 +48,6 @@ export class NewUserComponent {
             fecha: new Date().toISOString().substr(0, 10),
             name: this.nameComplete,
             isDeleted: false,
-
         }
 
         this.userService.AddUser(user).subscribe();

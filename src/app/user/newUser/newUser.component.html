@@ -4,18 +4,43 @@
     <mat-label>User Name</mat-label>
     <input matInput type="email" class="form-control" [(ngModel)]='email' formControlName="userName">
   </mat-form-field>
+  <div *ngIf="f.userName.errors" class="control">
+    <div style="color: red;" *ngIf="f.userName.errors.required && f.userName.touched">
+      userName required.
+    </div>
+    <div style="color: red;" *ngIf="f.userName.errors.email && f.userName.touched">
+      email incorrect format.
+    </div>
+  </div>
   <mat-form-field class="control" appearance="fill">
     <mat-label>Password</mat-label>
     <input matInput type="password" class="form-control" [(ngModel)]='pass' formControlName="password">
   </mat-form-field>
+  <div *ngIf="f.password.errors" class="control">
+    <div style="color: red;" *ngIf="f.password.errors.required && f.password.touched">
+      password required.
+    </div>
+  </div>
   <mat-form-field class="control" appearance="fill">
     <mat-label>Repeat Password</mat-label>
     <input matInput type="password" formControlName="repeatPassword">
   </mat-form-field>
+  <div *ngIf="f.repeatPassword.errors" class="control">
+    <div style="color: red;" *ngIf="f.repeatPassword.errors.required && f.repeatPassword.touched">
+      password required.
+    </div>
+    <div style="color: red;" *ngIf="f.repeatPassword.errors.mustMatch && f.repeatPassword.touched">Passwords must match
+    </div>
+  </div>
   <mat-form-field class="control" appearance="fill">
     <mat-label>Name</mat-label>
     <input matInput type="text" class="form-control" [(ngModel)]='nameComplete' formControlName="name">
   </mat-form-field>
+  <div *ngIf="f.name.errors" class="control">
+    <div style="color: red;" *ngIf="f.name.errors.required && f.name.touched">
+      name required.
+    </div>
+  </div>
   <div class="control">
     <mat-label>CV </mat-label>
     <input class="control" style=" margin-bottom: 10px; width: 200px;" (change)="onFileChange($event)" type="file">
