@@ -51,7 +51,6 @@ export class NewUserComponent {
         }
 
         this.userService.AddUser(user).subscribe();
-        console.log(this.currentFile);
         if (this.currentFile != null)
             this.upload();
 
